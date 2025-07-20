@@ -1,16 +1,29 @@
 const jwt = require("jsonwebtoken");
+const secret = "ihdfuioy127893hr97823ty0bfuhf893420ifgni0p";
+
+function getUser(token){
+    if(!token) return null;
+
+    return jwt.verify(token, secret);
+}
 
 function checkforauthentication(req , res , next){
-    const token = req.header("auth-token");
-    if(!token) return res.status(401).json({msg : "Access Denied"});
+    const authorizationHeaderValue = req.headers["authorization"];
 
-    try{
-        
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = verified;
-        next();
-
-    }catch(err){
-        res.status(400).json({msg : "Invalid Token! Login Again"});
+    if (!authorizationHeaderValue || !authorizationHeaderValue.startsWith("Bearer ")) {
+        return next();
     }
+   
+    const token = authorizationHeaderValue.split('Bearer ')[1];
+    const user = getUser(token);
+
+    if (user) {
+        req.user = user;
+    }
+
+    return next();
+}
+
+module.exports = {
+    checkforauthentication
 }

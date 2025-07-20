@@ -11,15 +11,10 @@ class UserService{
                email,
                password,
             })
-            return await createUser.save();;
+            return await createUser.save();
          }catch(err){
               throw err;
          }
-   }
-   
-   static async loginUser(email,password){
-      
-    return token;
    }
 }
 
