@@ -1,4 +1,7 @@
 const UserModel = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET="ihdfuioy127893hr97823ty0bfuhf893420ifgni0p"
 
 class UserService{
    static async registerUser(name,email,password) {
@@ -12,7 +15,12 @@ class UserService{
          }catch(err){
               throw err;
          }
-   }  
+   }
+   
+   static async loginUser(email,password){
+      
+    return token;
+   }
 }
 
 module.exports = UserService;
