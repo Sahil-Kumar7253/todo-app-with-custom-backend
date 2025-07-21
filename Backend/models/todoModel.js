@@ -2,9 +2,16 @@ const mongoose = require("mongoose");
 
 const TODOListModel = new mongoose.Schema({
     title : String,
-    completed : Boolean,
-    userId : {type : mongoose.Types.ObjectId, ref: "User"}
-});
+    completed :{
+        type : Boolean,
+        default : false
+    },
+    userId : {
+        type : mongoose.Schema.Types.ObjectId, 
+        ref: "User", 
+        required: true
+     }
+},{ timestamps: true });
 
 const TODOList = mongoose.model("TODO",TODOListModel);
 

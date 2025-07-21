@@ -26,7 +26,7 @@ async function handleLoginUser(req,res){
   const validPass = await bcrypt.compare(password, user.password);
   if (!validPass) return res.status(400).json({ msg: 'Invalid Password' });
 
-  const token = jwt.sign({ email : user.email,},JWT_SECRET);
+  const token = jwt.sign({ _id : user._id ,email : user.email,},JWT_SECRET);
   return res.json({ token });
 }
 
