@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
+
+const dbUri = process.env.MONGO_URI;
 
 const connection = mongoose
-   .connect("mongodb://localhost:27017/todo-app")
+   .connect(dbUri)
    .then(() => {
       console.log("Connected to MongoDB");
    });
