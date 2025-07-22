@@ -1,10 +1,20 @@
-require("dotenv").config();
+
 const app = require("./app");
 const connectDB = require("./config/mogooseConnection");
-const port = process.env.PORT || 3000;
 
-connectDB();
+const startServer = async () => {
+  try {
 
-app.listen(port, () => {
-  console.log(`Server is running on port : http://localhost:${port}`);
-})
+    await connectDB();
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+      console.log(`Server is running on port: ${port}`);
+    });
+    
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
